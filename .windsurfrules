@@ -1,0 +1,38 @@
+# general
+- Please avoid most comments.
+- Please keep the codebase consistent.
+
+# Frontend
+- Please do not use the `any` type.
+- Please do not use type assertions.
+- Use angular http client for requests
+
+# C#
+- Do provide xml docs on model properties and controller methods for the sake of swagger.
+- Do not use namespace blocks, use filescoped namespaces.
+- Please do not inject applicationdbcontext into controllers directly. 
+- The only thing you should inject into controllers is services.
+- Make services for any part of the app needs to talk to the database.
+- Define services for logical business operations.
+- Define repositories for database operations.
+- Define interfaces for services & repositories.
+- Use RESTful conventions for api calls
+
+- Use DTO objects as return results for controller routes. Do not just send over the EF models. 
+- Only send the fields the frontend actually needs.
+
+# API Routes
+The api routing should roughly look like:
+- `/api/tax` (calculate tax)
+- `/api/rules` (manage rule sets)
+- `/api/rules/{ruleSetId}/bands` (manage tax bands)
+
+# shell commands
+I am not using bash. Please use nushell syntax for embedded terminal commands.
+This only applies to my environment, for docker, terraform, etc. assume a linux environment with bash.
+
+# devops 
+- The Dockerfile is in the root of the project. It is used to build the backend app and serve the frontend as static files.
+- The docker-compose file is purely for local development convenience. It is not used for production.
+- The app runs a .NET 9 with ASP.NET Core. It serves both the C# API and the built Angular frontend.
+- We will use Github actions for continuous integration and deployment.

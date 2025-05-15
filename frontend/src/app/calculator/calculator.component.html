@@ -1,0 +1,94 @@
+@let rules = taxRules();
+@let summary = taxSummary();
+
+<div class="calculator">
+  <h2 class="calculator__title">UK Tax Calculator</h2>
+
+  <div class="calculator__input-section">
+    <label class="calculator__label">
+      Gross Annual Salary: (£)
+      <input
+        type="number"
+        class="calculator__input"
+        name="grossAnnualSalary"
+        [(ngModel)]="grossAnnualSalary"
+        min="0"
+        placeholder="Enter annual salary"
+      />
+    </label>
+    <label class="calculator__label calculator__label--select">
+      Tax Rule Set:
+      <select
+        class="calculator__select"
+        [(ngModel)]="selectedRuleSetId"
+        [disabled]="rules.loading"
+      >
+        @if (rules.data) {
+          @for (ruleSet of rules.data; track ruleSet.id) {
+            <option [value]="ruleSet.id">{{ ruleSet.name }}</option>
+          }
+        }
+        @else {
+            <option [disabled]="true">Loading...</option>
+        }
+      </select>
+    </label>
+    @let salary = grossAnnualSalary();
+    <button
+      class="calculator__button"
+      name="calculate"
+      (click)="calculateTax()"
+      [disabled]="salary == null || salary < 0 || summary.loading"
+    >
+      Calculate
+    </button>
+  </div>
+
+
+  @if (summary.error) {
+    <div class="calculator__error">
+      An error occurred while calculating tax. Please try again.
+    </div>
+  }
+
+  @if (summary.loading) {
+    <div class="calculator__loading">
+      Calculating tax...
+    </div>
+  }
+
+  @if (summary.data && !summary.loading) {
+    <div class="calculator__results">
+      <div class="calculator__result-row">
+        <span class="calculator__result-label">Gross Annual Salary:</span>
+        <span class="calculator__result-value">£{{ formatCurrency(summary.data.grossAnnualSalary) }}</span>
+      </div>
+
+      <div class="calculator__result-row">
+        <span class="calculator__result-label">Gross Monthly Salary:</span>
+        <span class="calculator__result-value">£{{ formatCurrency(summary.data.grossMonthlySalary) }}</span>
+      </div>
+
+      <div class="calculator__result-row">
+        <span class="calculator__result-label">Net Annual Salary:</span>
+        <span class="calculator__result-value">£{{ formatCurrency(summary.data.netAnnualSalary) }}</span>
+      </div>
+
+      <div class="calculator__result-row">
+        <span class="calculator__result-label">Net Monthly Salary:</span>
+        <span class="calculator__result-value">£{{ formatCurrency(summary.data.netMonthlySalary) }}</span>
+      </div>
+
+      <div class="calculator__result-row">
+        <span class="calculator__result-label">Annual Tax Paid:</span>
+        <span class="calculator__result-value">£{{ formatCurrency(summary.data.annualTaxPaid) }}</span>
+      </div>
+
+      <div class="calculator__result-row">
+        <span class="calculator__result-label">Monthly Tax Paid:</span>
+        <span class="calculator__result-value">£{{ formatCurrency(summary.data.monthlyTaxPaid) }}</span>
+      </div>
+    </div>
+  }
+</div>
+

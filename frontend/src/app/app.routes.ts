@@ -1,0 +1,19 @@
+import { Routes } from '@angular/router';
+import { CalculatorComponent } from './calculator/calculator.component';
+import { TaxBandsComponent } from './tax-bands/tax-bands.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'calculator',
+    pathMatch: 'full'
+  },
+  {
+    path: 'calculator',
+    component: CalculatorComponent,
+  },
+  {
+    path: 'tax-bands',
+    component: TaxBandsComponent,
+  }
+];

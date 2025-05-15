@@ -1,0 +1,11 @@
+/* App component styles using BEM methodology */
+
+.app {
+  font-family: Arial, sans-serif;
+}
+
+.app__content {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
