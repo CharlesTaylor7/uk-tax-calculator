@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/playwright:v1.52.0-noble AS test
+WORKDIR /app
+
+# Copy package.json and package-lock.json first for better caching
+COPY frontend/package*.json ./
+RUN npm ci
+
+# Copy the tests and config 
+COPY frontend/playwright.config.ts ./
+COPY frontend/e2e ./e2e
+CMD ["npx", "playwright", "test"]

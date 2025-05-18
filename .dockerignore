@@ -4,3 +4,5 @@
 **/dist/
 **/.angular/
 **/efbundle
+**/playwright-report/
+**/test-results/

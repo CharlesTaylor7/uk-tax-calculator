@@ -15,6 +15,16 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+      
+  e2e-tests:
+    profiles: ["e2e"]
+    build:
+      context: .
+      target: test
+      dockerfile: Dockerfile.playwright
+    container_name: e2e-tests
+    depends_on:
+      - app
 
   migrate:
     build: .
