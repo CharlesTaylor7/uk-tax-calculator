@@ -6,14 +6,14 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'calculator',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'calculator',
     component: CalculatorComponent,
   },
   {
-    path: 'tax-bands',
+    path: 'tax-rules',
     component: TaxBandsComponent,
-  }
+  },
 ];
