@@ -7,11 +7,22 @@ This project is manged using [Angular CLI](https://github.com/angular/angular-cl
 To start the local development server, run:
 
 ```bash
-npm i
+npm install
 npm run dev 
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files. The npm script will proxy api calls to the backend server, which must also be running.
+
+## Other commands
+Lint code with eslint:
+```
+npm run lint
+```
+
+Format code with prettier:
+```
+npm run format
+```
 
 ## Additional Resources
 

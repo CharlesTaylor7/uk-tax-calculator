@@ -27,9 +27,8 @@
           @for (ruleSet of rules.data; track ruleSet.id) {
             <option [value]="ruleSet.id">{{ ruleSet.name }}</option>
           }
-        }
-        @else {
-            <option [disabled]="true">Loading...</option>
+        } @else {
+          <option [disabled]="true">Loading...</option>
         }
       </select>
     </label>
@@ -38,12 +37,11 @@
       class="calculator__button"
       name="calculate"
       (click)="calculateTax()"
-      [disabled]="salary == null || salary < 0 || summary.loading"
+      [disabled]="salary === null || salary < 0 || summary.loading"
     >
       Calculate
     </button>
   </div>
-
 
   <!-- server errror -->
   @if (summary.error) {
@@ -51,7 +49,6 @@
       An error occurred while calculating tax. Please try again.
     </div>
   }
-
 
   <!-- client errror -->
   @if (errorMessage()) {
@@ -61,43 +58,52 @@
   }
 
   @if (summary.loading) {
-    <div class="calculator__loading">
-      Calculating tax...
-    </div>
+    <div class="calculator__loading">Calculating tax...</div>
   }
 
   @if (summary.data && !summary.loading) {
     <div class="calculator__results">
       <div class="calculator__result-row">
         <span class="calculator__result-label">Gross Annual Salary:</span>
-        <span class="calculator__result-value">£{{ formatCurrency(summary.data.grossAnnualSalary) }}</span>
+        <span class="calculator__result-value"
+          >£{{ formatCurrency(summary.data.grossAnnualSalary) }}</span
+        >
       </div>
 
       <div class="calculator__result-row">
         <span class="calculator__result-label">Gross Monthly Salary:</span>
-        <span class="calculator__result-value">£{{ formatCurrency(summary.data.grossMonthlySalary) }}</span>
+        <span class="calculator__result-value"
+          >£{{ formatCurrency(summary.data.grossMonthlySalary) }}</span
+        >
       </div>
 
       <div class="calculator__result-row">
         <span class="calculator__result-label">Net Annual Salary:</span>
-        <span class="calculator__result-value">£{{ formatCurrency(summary.data.netAnnualSalary) }}</span>
+        <span class="calculator__result-value"
+          >£{{ formatCurrency(summary.data.netAnnualSalary) }}</span
+        >
       </div>
 
       <div class="calculator__result-row">
         <span class="calculator__result-label">Net Monthly Salary:</span>
-        <span class="calculator__result-value">£{{ formatCurrency(summary.data.netMonthlySalary) }}</span>
+        <span class="calculator__result-value"
+          >£{{ formatCurrency(summary.data.netMonthlySalary) }}</span
+        >
       </div>
 
       <div class="calculator__result-row">
         <span class="calculator__result-label">Annual Tax Paid:</span>
-        <span class="calculator__result-value">£{{ formatCurrency(summary.data.annualTaxPaid) }}</span>
+        <span class="calculator__result-value"
+          >£{{ formatCurrency(summary.data.annualTaxPaid) }}</span
+        >
       </div>
 
       <div class="calculator__result-row">
         <span class="calculator__result-label">Monthly Tax Paid:</span>
-        <span class="calculator__result-value">£{{ formatCurrency(summary.data.monthlyTaxPaid) }}</span>
+        <span class="calculator__result-value"
+          >£{{ formatCurrency(summary.data.monthlyTaxPaid) }}</span
+        >
       </div>
     </div>
   }
 </div>
-

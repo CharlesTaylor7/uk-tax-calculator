@@ -15,8 +15,8 @@ export function withApiState<T>(): OperatorFunction<T, ApiData<T>> {
       catchError((err) => of({ loading: false, error: err, data: null })),
     );
 }
-export type ApiData<T> = {
+export interface ApiData<T> {
   error: string | null;
   loading: boolean;
   data: T | null;
-};
+}

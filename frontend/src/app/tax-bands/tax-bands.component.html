@@ -2,7 +2,9 @@
   <h2 class="tax-bands__title">UK Tax Rules</h2>
 
   <div class="tax-bands__actions">
-    <button class="tax-bands__button" (click)="createNewRuleSet()">Create New Rule Set</button>
+    <button class="tax-bands__button" (click)="createNewRuleSet()">
+      Create New Rule Set
+    </button>
   </div>
 
   <div class="rule-sets" *ngIf="ruleSets().length > 0">
@@ -12,13 +14,15 @@
           class="rule-card__title-input"
           [(ngModel)]="ruleSet.name"
           (blur)="updateRuleSet(ruleSet)"
-        >
+        />
         <div class="rule-card__actions">
           <button
             class="rule-card__button rule-card__button--danger"
             (click)="deleteRuleSet(ruleSet)"
             title="Delete Rule Set"
-          >×</button>
+          >
+            ×
+          </button>
         </div>
       </div>
 
@@ -27,7 +31,9 @@
           <div class="tax-bands__header-cell">Tax Band</div>
           <div class="tax-bands__header-cell">Salary</div>
           <div class="tax-bands__header-cell">Tax Rate</div>
-          <div class="tax-bands__header-cell tax-bands__header-cell--actions">Actions</div>
+          <div class="tax-bands__header-cell tax-bands__header-cell--actions">
+            Actions
+          </div>
         </div>
 
         <div class="tax-bands__row" *ngFor="let band of ruleSet.taxBands">
@@ -36,7 +42,7 @@
               class="tax-bands__input"
               [(ngModel)]="band.name"
               (blur)="updateBand(band)"
-            >
+            />
           </div>
           <div class="tax-bands__cell">
             £
@@ -45,7 +51,7 @@
               type="number"
               [(ngModel)]="band.lowerLimit"
               (blur)="updateBand(band)"
-            >
+            />
           </div>
           <div class="tax-bands__cell">
             <input
@@ -53,14 +59,16 @@
               type="number"
               [(ngModel)]="band.percentageRate"
               (blur)="updateBand(band)"
-            >%
+            />%
           </div>
           <div class="tax-bands__cell tax-bands__cell--actions">
             <button
               class="tax-bands__action-button tax-bands__action-button--danger"
               (click)="deleteBand(band)"
               title="Delete Tax Band"
-            >×</button>
+            >
+              ×
+            </button>
           </div>
         </div>
       </div>
@@ -70,10 +78,11 @@
           class="rule-card__add-button"
           (click)="addBand(ruleSet)"
           title="Add Tax Band"
-        >Add Tax Band</button>
+        >
+          Add Tax Band
+        </button>
       </div>
     </div>
-
   </div>
 
   <div class="tax-bands__empty" *ngIf="ruleSets().length === 0">
