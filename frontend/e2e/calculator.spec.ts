@@ -1,7 +1,12 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, chromium } from '@playwright/test';
 
-test('calculator should calculate tax correctly', async ({ page }) => {
-  // Navigate to the calculator page
+test('calculator should calculate tax correctly', async () => {
+  // Create a browser instance that ignores HTTPS errors
+  const browser = await chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  // root url redirects to /calculator
   await page.goto('/');
 
   // Fill in the salary input

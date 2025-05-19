@@ -16,17 +16,6 @@ services:
       timeout: 5s
       retries: 5
       
-  e2e-tests:
-    profiles: ["e2e"]
-    build:
-      context: .
-      target: test
-      dockerfile: Dockerfile.playwright
-    container_name: e2e-tests
-    depends_on:
-      app:
-        condition: service_healthy
-
   migrate:
     build: .
     container_name: migrations
@@ -53,6 +42,17 @@ services:
     depends_on:
       migrate:
         condition: service_completed_successfully
+
+  e2e-tests:
+    profiles: ["e2e"]
+    build:
+      dockerfile: Dockerfile.playwright
+      context: .
+    container_name: e2e-tests
+    depends_on:
+      app:
+        condition: service_healthy
+
 
 volumes:
   postgres_data:

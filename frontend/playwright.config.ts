@@ -7,9 +7,15 @@ export default defineConfig({
   workers: 1,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:8080',
+    // Use the app container name instead of localhost
+    baseURL: 'http://app:8080',
+    // Increase timeouts to allow for container startup
+    navigationTimeout: 60000,
+    actionTimeout: 30000,
+    // Other settings
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    ignoreHTTPSErrors: true,
   },
   projects: [
     {

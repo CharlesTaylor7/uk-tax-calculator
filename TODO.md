@@ -1,6 +1,8 @@
-## Frontend
 - Readme
   - explain how to run tests
   - explain how to run code locally
   - include link to production app
 - [ ] setup a basic CI/CD pipeline
+- [ ] Fix karma tests
+  - DI for http client
+- [ ] Get playwright tests to work from docker-compose
