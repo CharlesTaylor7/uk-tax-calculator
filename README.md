@@ -10,8 +10,12 @@ https://uk-tax-app.fly.dev
 
 If you'd like to build and run the application locally a docker-compose.yml file is provided for convenience.
 
-You can run the application with just
+You can run the application like so
 ```
+# apply migrations
+docker compose --profile migrate up --build
+
+# run database + web server
 docker compose up --build
 ```
 
@@ -28,9 +32,12 @@ For that, you'll need to follow more specific steps in the frontend/README.md an
 ## E2E tests
 
 Playwright tests are also run via the docker-compose file.
-Simply run 
 
 ```
+# apply migrations
+docker compose --profile migrate up --build
+
+# run e2e tests
 docker compose --profile e2e up --build
 ```
 

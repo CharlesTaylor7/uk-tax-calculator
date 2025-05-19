@@ -8,7 +8,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     // Use the app container name instead of localhost
-    baseURL: process.env.CI ? 'http://app:8080' : 'http://localhost:4200',
+    baseURL: process.env.CI ? 'http://localhost:8080' : 'http://localhost:4200',
     // Increase timeouts to allow for container startup
     navigationTimeout: 60000,
     actionTimeout: 30000,
