@@ -1,15 +1,20 @@
-# See https://fly.io/docs/app-guides/continuous-deployment-with-github-actions/
+name: Deploy 
 
-name: Fly Deploy
 on:
   push:
     branches:
       - main
+
 jobs:
+  validate:
+    name: Validate
+    uses: ./.github/workflows/validate.yml
+  
   deploy:
-    name: Deploy app
+    name: Deploy to Fly.io
+    needs: validate
     runs-on: ubuntu-latest
-    concurrency: deploy-group    # optional: ensure only one action runs at a time
+    concurrency: deploy-group  # ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master

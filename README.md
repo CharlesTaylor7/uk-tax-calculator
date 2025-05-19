@@ -12,10 +12,6 @@ If you'd like to build and run the application locally a docker-compose.yml file
 
 You can run the application like so
 ```
-# apply migrations
-docker compose --profile migrate up --build
-
-# run database + web server
 docker compose up --build
 ```
 
@@ -74,11 +70,7 @@ For swagger api docs, visit http://localhost:5000/swagger
 Playwright tests are also run via the docker-compose file.
 
 ```
-# apply migrations
-docker compose --profile migrate up --build
-
-# run e2e tests
-docker compose --profile e2e up --build
+docker compose run e2e
 ```
 
 ## Unit Tests

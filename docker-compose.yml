@@ -31,18 +31,20 @@ services:
       timeout: 5s
       retries: 10
       start_period: 5s
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
         
   migrate:
-    profiles: ["migrate"]
     build: .
     container_name: migrate
     entrypoint: ["/app/efbundle"]
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=taxcalculator;Username=postgres;Password=postgres"
 
+    depends_on:
+      db:
+        condition: service_healthy
 
   e2e:
     profiles: ["e2e"]

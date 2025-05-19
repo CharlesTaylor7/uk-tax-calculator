@@ -1,0 +1,65 @@
+name: Validate
+
+on:
+  workflow_call:
+
+jobs:
+  backend-tests:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+          
+      - name: Restore dependencies
+        run: dotnet restore backend/TaxCalculator.sln
+        
+      - name: Build
+        run: dotnet build backend/TaxCalculator.sln --no-restore
+        
+      - name: Test
+        run: dotnet test backend/TaxCalculator.sln --no-build --verbosity normal
+  
+  frontend-unit-tests:
+    name: Frontend Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+          
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+        
+      - name: Run unit tests
+        working-directory: frontend
+        run: npm test -- --browsers=ChromeHeadless --watch=false --code-coverage
+  
+  frontend-e2e-tests:
+    name: Frontend E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Apply database migrations
+        run: docker compose run migrate
+      
+      - name: Run E2E tests with Docker Compose
+        run: docker compose run e2e
+        
+      - name: Clean up Docker containers
+        if: always()
+        run: docker compose down -v
