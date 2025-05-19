@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+# ensure only one deploy runs at a time
+concurrency: deploy-group  
+
 jobs:
   validate:
     name: Validate
@@ -14,7 +17,6 @@ jobs:
     name: Deploy to Fly.io
     needs: validate
     runs-on: ubuntu-latest
-    concurrency: deploy-group  # ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
