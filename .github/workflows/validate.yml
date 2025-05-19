@@ -22,10 +22,10 @@ jobs:
         run: dotnet restore && dotnet tool restore
         
       - name: Build
-        run: dotnet build backend/TaxCalculator.sln --no-restore
+        run: dotnet build --no-restore
         
       - name: Test
-        run: dotnet test backend/TaxCalculator.sln --no-build --verbosity normal
+        run: dotnet test --no-build --verbosity normal
 
       - name: Check formatting
         run: dotnet csharpier check .
