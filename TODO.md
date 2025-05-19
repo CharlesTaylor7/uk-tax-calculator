@@ -11,9 +11,6 @@
   - fails in CI/CD
 
 - Frontend
-  - [x] Add tax band should be at bottom of card
-  - [x] Column should say salary
-  - [x] the pound marker should be inline
   - [ ] Rename taxband component to tax rules component
   - [ ] Need loading indicator
   - [ ] need error indicator
