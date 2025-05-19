@@ -2,17 +2,17 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "csharpier": {
-      "version": "1.0.1",
-      "commands": [
-        "csharpier"
-      ],
-      "rollForward": false
-    },
     "dotnet-ef": {
       "version": "9.0.5",
       "commands": [
         "dotnet-ef"
+      ],
+      "rollForward": false
+    },
+    "csharpier": {
+      "version": "1.0.1",
+      "commands": [
+        "csharpier"
       ],
       "rollForward": false
     }
