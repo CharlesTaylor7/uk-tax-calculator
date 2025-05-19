@@ -36,26 +36,3 @@ jobs:
       
       - name: Run E2E tests with Docker Compose
         run: docker compose run --rm e2e
-
-
-# frontend-unit-tests:
-  #   name: Unit Tests - Angular
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: '24'
-  #         cache: 'npm'
-  #         cache-dependency-path: frontend/package-lock.json
-  #
-  #     - name: Install dependencies
-  #       working-directory: frontend
-  #       run: npm ci
-  #
-  #     - name: Run unit tests
-  #       working-directory: frontend
-  #       run: npm test -- --browsers=ChromeHeadless --watch=false --code-coverage
-  
