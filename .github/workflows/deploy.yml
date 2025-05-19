@@ -5,8 +5,9 @@ on:
     branches:
       - main
 
-# ensure only one deploy runs at a time
-concurrency: deploy-group  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
@@ -20,6 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: fly deploy --remote-only --strategy=immediate
+      - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
