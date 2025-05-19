@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using TaxCalculator;
 using TaxCalculator.Data;
@@ -59,6 +60,9 @@ WebApplicationBuilder Configure()
     // Register application services
     builder.Services.AddScoped<TaxCalculationService>();
 
+    // Add health checks
+    builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
+
     return builder;
 }
 
@@ -75,6 +79,8 @@ void Start(WebApplication app)
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "UK Tax Calculator API v1");
         options.RoutePrefix = "swagger";
     });
+
+    app.MapHealthChecks("/health");
 
     if (app.Environment.IsProduction())
     {

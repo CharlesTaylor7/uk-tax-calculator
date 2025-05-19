@@ -30,6 +30,9 @@ RUN dotnet ef migrations bundle
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 
+# Install curl for health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Copy backend build artifacts
 COPY --from=backend-build /app/backend/out ./
 COPY --from=backend-build /app/backend/efbundle ./

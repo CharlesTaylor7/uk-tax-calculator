@@ -24,7 +24,8 @@ services:
       dockerfile: Dockerfile.playwright
     container_name: e2e-tests
     depends_on:
-      - app
+      app:
+        condition: service_healthy
 
   migrate:
     build: .
@@ -43,6 +44,12 @@ services:
       - "8080:8080"
     environment:
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=taxcalculator;Username=postgres;Password=postgres"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
     depends_on:
       migrate:
         condition: service_completed_successfully
