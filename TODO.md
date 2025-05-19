@@ -15,8 +15,9 @@
   - [ ] Add tax band should be at bottom of card
   - [ ] Need loading indicators
   - [ ] Should auto select first tax rule set in dropdown
-  - [ ] Column should say salary
-  - []   the pound marker should be inline
+  - [x] Column should say salary
+  - [x] the pound marker should be inline
+
 
 - [ ] Fix karma tests
   - DI for http client

@@ -16,11 +16,6 @@
         >
         <div class="rule-card__actions">
           <button
-            class="rule-card__button"
-            (click)="addBand(ruleSet)"
-            title="Add Tax Band"
-          >+</button>
-          <button
             class="rule-card__button rule-card__button--danger"
             (click)="deleteRuleSet(ruleSet)"
             title="Delete Rule Set"
@@ -71,7 +66,14 @@
           </div>
         </div>
       </div>
+
+          <button
+            class="rule-card__button"
+            (click)="addBand(ruleSet)"
+            title="Add Tax Band"
+          >+</button>
     </div>
+
   </div>
 
   <!-- No rule sets message -->
