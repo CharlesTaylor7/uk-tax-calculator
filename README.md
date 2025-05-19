@@ -2,7 +2,6 @@
 
 If you want to cut to the chase and demo the deployed application, its live at :
 
-
 https://uk-tax-app.fly.dev
 
 ## Developing w/ docker compose
@@ -70,7 +69,8 @@ For swagger api docs, visit http://localhost:5000/swagger
 Playwright tests are also run via the docker-compose file.
 
 ```
-docker compose run e2e
+docker compose --profile e2e build e2e
+docker compose run --rm e2e 
 ```
 
 ## Unit Tests
