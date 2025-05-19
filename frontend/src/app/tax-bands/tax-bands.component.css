@@ -140,6 +140,31 @@
   background-color: rgba(211, 47, 47, 0.9);
 }
 
+.rule-card__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  border-top: 1px solid #eee;
+}
+
+.rule-card__add-button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rule-card__add-button:hover {
+  background-color: #45a049;
+}
+
 .tax-bands__header {
   display: flex;
   background-color: #f5f5f5;

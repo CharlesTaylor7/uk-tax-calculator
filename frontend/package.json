@@ -5,10 +5,7 @@
   "scripts": {
     "dev": "ng serve --proxy-config proxy.config.json",
     "build": "ng build",
-    "test": "ng test",
-    "test:e2e": "playwright test",
-    "test:e2e:ci": "playwright test --reporter=dot",
-    "test:e2e:debug": "playwright test --debug"
+    "test": "ng test"
   },
   "dependencies": {
     "@angular/common": "^19.2.0",

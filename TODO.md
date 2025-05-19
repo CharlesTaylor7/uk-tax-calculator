@@ -11,12 +11,12 @@
   - fails in CI/CD
 
 - Frontend
-  - [ ] Rename taxband component to tax rules component
-  - [ ] Add tax band should be at bottom of card
-  - [ ] Need loading indicators
-  - [ ] Should auto select first tax rule set in dropdown
+  - [x] Add tax band should be at bottom of card
   - [x] Column should say salary
   - [x] the pound marker should be inline
+  - [ ] Rename taxband component to tax rules component
+  - [ ] Need loading indicator
+  - [ ] need error indicator
 
 
 - [ ] Fix karma tests

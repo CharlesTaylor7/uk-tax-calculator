@@ -5,7 +5,6 @@
     <button class="tax-bands__button" (click)="createNewRuleSet()">Create New Rule Set</button>
   </div>
 
-  <!-- Rule sets cards -->
   <div class="rule-sets" *ngIf="ruleSets().length > 0">
     <div class="rule-card" *ngFor="let ruleSet of ruleSets()">
       <div class="rule-card__header">
@@ -23,7 +22,6 @@
         </div>
       </div>
 
-      <!-- Tax bands table for this rule set -->
       <div class="tax-bands__container">
         <div class="tax-bands__header">
           <div class="tax-bands__header-cell">Tax Band</div>
@@ -67,16 +65,17 @@
         </div>
       </div>
 
-          <button
-            class="rule-card__button"
-            (click)="addBand(ruleSet)"
-            title="Add Tax Band"
-          >+</button>
+      <div class="rule-card__footer">
+        <button
+          class="rule-card__add-button"
+          (click)="addBand(ruleSet)"
+          title="Add Tax Band"
+        >Add Tax Band</button>
+      </div>
     </div>
 
   </div>
 
-  <!-- No rule sets message -->
   <div class="tax-bands__empty" *ngIf="ruleSets().length === 0">
     No tax rules available.
   </div>

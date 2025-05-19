@@ -41,7 +41,7 @@ export class TaxBandsComponent implements OnInit {
   deleteRuleSet(ruleSet: TaxRuleSet): void {
     const optimisticDelete = () => {
       this.ruleSets.update((ruleSets) =>
-        ruleSets.filter((rs) => rs.id !== ruleSet.id)
+        ruleSets.filter((rs) => rs.id !== ruleSet.id),
       );
     };
 
@@ -80,31 +80,29 @@ export class TaxBandsComponent implements OnInit {
     };
 
     // Immediately save the new band to the server
-    this.taxRulesService.createBand(ruleSet.id, newBandData).subscribe((createdBand) => {
-      // After the server confirms creation, update the local state
-      this.ruleSets.update((ruleSets) => {
-        return ruleSets.map((rs) => {
-          if (rs.id === ruleSet.id) {
-            return {
-              ...rs,
-              taxBands: [...rs.taxBands, createdBand],
-            };
-          }
-          return rs;
+    this.taxRulesService
+      .createBand(ruleSet.id, newBandData)
+      .subscribe((createdBand) => {
+        // After the server confirms creation, update the local state
+        this.ruleSets.update((ruleSets) => {
+          return ruleSets.map((rs) => {
+            if (rs.id === ruleSet.id) {
+              return {
+                ...rs,
+                taxBands: [...rs.taxBands, createdBand],
+              };
+            }
+            return rs;
+          });
         });
       });
-    });
   }
 
   updateBand(band: TaxBand): void {
     if (!band.taxRuleSetId) return;
 
-    // Two-way binding with [(ngModel)] already updated the UI
-    // No need for optimistic update here
     this.taxRulesService.updateBand(band).subscribe();
   }
-
-  // This method is no longer needed as bands are created directly with the server
 
   deleteBand(band: TaxBand): void {
     const optimisticDelete = () => {

@@ -20,7 +20,7 @@
       Tax Rule Set:
       <select
         class="calculator__select"
-        [(ngModel)]="selectedRuleSetId"
+        [(ngModel)]="taxRuleSetId"
         [disabled]="rules.loading"
       >
         @if (rules.data) {
@@ -45,9 +45,18 @@
   </div>
 
 
+  <!-- server errror -->
   @if (summary.error) {
     <div class="calculator__error">
       An error occurred while calculating tax. Please try again.
+    </div>
+  }
+
+
+  <!-- client errror -->
+  @if (errorMessage()) {
+    <div class="calculator__error">
+      {{ errorMessage() }}
     </div>
   }
 
