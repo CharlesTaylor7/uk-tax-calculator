@@ -70,7 +70,7 @@ Playwright tests are also run via the docker-compose file.
 
 ```
 docker compose --profile e2e build e2e
-docker compose run --rm e2e 
+docker compose run --rm e2e
 ```
 
 ## Unit Tests
