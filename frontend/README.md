@@ -1,25 +1,30 @@
-# TaxCalculator
+# TaxCalculator Frontend
 
-This project is manged using [Angular CLI](https://github.com/angular/angular-cli) version 19.
+This is the frontend for the UK Tax Calculator application, built with Angular and managed using [Angular CLI](https://github.com/angular/angular-cli) version 19.
 
-## Development server
+## Development Server
 
 To start the local development server, run:
 
 ```bash
 npm install
-npm run dev 
+npm run dev
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files. The npm script will proxy api calls to the backend server, which must also be running.
+Once the server is running, open your browser and navigate to http://localhost:4200/. The application will automatically reload whenever you modify any of the source files.
 
-## Other commands
-Lint code with eslint:
+Note: The backend server must also be running for API requests to function correctly. The development server is configured to proxy API calls to the backend.
+
+## Other Commands
+
+To lint the code with ESLint:
+
 ```
 npm run lint
 ```
 
-Format code with prettier:
+To format the code with Prettier:
+
 ```
 npm run format
 ```
