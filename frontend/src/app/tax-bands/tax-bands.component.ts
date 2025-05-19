@@ -6,7 +6,6 @@ import {
   TaxRuleSet,
   TaxBand,
 } from '../tax-rules-api.service';
-import { ApiData } from '../api-utils';
 
 @Component({
   selector: 'app-tax-bands',
@@ -17,25 +16,37 @@ import { ApiData } from '../api-utils';
 export class TaxBandsComponent implements OnInit {
   taxRulesService = inject(TaxRulesApiService);
 
+  loading = signal(true);
+  error = signal<Error | null>(null);
   ruleSets = signal<TaxRuleSet[]>([]);
 
   ngOnInit(): void {
-    this.loadTaxBands();
+    this.taxRulesService.getRuleSets$().subscribe({
+      next: (data) => {
+        this.ruleSets.set(data);
+        this.loading.set(false);
+      },
+      error: (error: Error) => {
+        this.error.set(error);
+        this.loading.set(false);
+      },
+    });
   }
 
   createNewRuleSet(): void {
-    this.taxRulesService
-      .createRuleSet({ name: `New Tax Rule Set`, taxBands: [] })
-      .subscribe((newRuleSet) => {
-        this.ruleSets.update((ruleSets) => [...ruleSets, newRuleSet]);
-      });
+    this.taxRulesService.createRuleSet$!({
+      name: `New Tax Rule Set`,
+      taxBands: [],
+    }).subscribe((newRuleSet) => {
+      this.ruleSets.update((ruleSets) => [...ruleSets, newRuleSet]);
+    });
   }
 
   updateRuleSet(ruleSet: TaxRuleSet): void {
     if (!ruleSet.id) return;
 
-    // Optimistic update already handled by two-way binding with [(ngModel)]
-    this.taxRulesService.updateRuleSet(ruleSet).subscribe();
+    // Optimistic update already handled by two-way binding with ngModel
+    this.taxRulesService.updateRuleSet$(ruleSet).subscribe();
   }
 
   deleteRuleSet(ruleSet: TaxRuleSet): void {
@@ -47,7 +58,7 @@ export class TaxBandsComponent implements OnInit {
 
     if (ruleSet.id) {
       this.taxRulesService
-        .deleteRuleSet(ruleSet.id)
+        .deleteRuleSet$(ruleSet.id)
         .subscribe(optimisticDelete);
     } else {
       optimisticDelete();
@@ -81,7 +92,7 @@ export class TaxBandsComponent implements OnInit {
 
     // Immediately save the new band to the server
     this.taxRulesService
-      .createBand(ruleSet.id, newBandData)
+      .createBand$(ruleSet.id, newBandData)
       .subscribe((createdBand) => {
         // After the server confirms creation, update the local state
         this.ruleSets.update((ruleSets) => {
@@ -101,7 +112,7 @@ export class TaxBandsComponent implements OnInit {
   updateBand(band: TaxBand): void {
     if (!band.taxRuleSetId) return;
 
-    this.taxRulesService.updateBand(band).subscribe();
+    this.taxRulesService.updateBand$(band).subscribe();
   }
 
   deleteBand(band: TaxBand): void {
@@ -120,18 +131,8 @@ export class TaxBandsComponent implements OnInit {
     };
 
     this.taxRulesService
-      .deleteBand(band.taxRuleSetId, band.id)
+      .deleteBand$(band.taxRuleSetId, band.id)
       .subscribe(optimisticDelete);
-  }
-
-  loadTaxBands(): void {
-    const onLoadSuccess = (response: ApiData<TaxRuleSet[]>) => {
-      if (response.data) {
-        this.ruleSets.set(response.data);
-      }
-    };
-
-    this.taxRulesService.getRuleSets().subscribe(onLoadSuccess);
   }
 
   formatCurrency(value: number): string {

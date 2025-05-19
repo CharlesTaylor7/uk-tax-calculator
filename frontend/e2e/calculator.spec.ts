@@ -19,6 +19,6 @@ test('calculator should calculate tax correctly', async ({ page }) => {
       .locator('.calculator__result-row', {
         hasText: 'Annual Tax Paid:',
       })
-      .locator('.calculator__result-value')
+      .locator('.calculator__result-value'),
   ).toContainText('£7,000.00');
 });

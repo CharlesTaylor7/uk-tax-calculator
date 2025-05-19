@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiData } from '../api-utils';
 import { TaxRulesApiService } from '../tax-rules-api.service';
 import { TaxSummary, TaxSummaryApiService } from '../tax-summary-api.service';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -21,30 +20,22 @@ export class CalculatorComponent {
   taxRulesService = inject(TaxRulesApiService);
   taxSummaryService = inject(TaxSummaryApiService);
 
+  rulesLoading = signal(true);
   taxRules = toSignal(
     this.taxRulesService.taxRules$.pipe(
       tap((result) => {
         // when the dropdown data loads,
         // preselect the first option
-        if (result.data?.length) {
-          this.taxRuleSetId.set(result.data[0].id);
+        if (result.length) {
+          this.taxRuleSetId.set(result[0].id);
         }
+        this.rulesLoading.set(false);
       }),
     ),
-    {
-      initialValue: {
-        loading: true,
-        error: null,
-        data: null,
-      },
-    },
   );
 
-  taxSummary = signal<ApiData<TaxSummary>>({
-    loading: false,
-    error: null,
-    data: null,
-  });
+  summaryLoading = signal(false);
+  taxSummary = signal<TaxSummary | null>(null);
 
   calculateTax() {
     const grossSalary = this.grossAnnualSalary();
@@ -63,11 +54,14 @@ export class CalculatorComponent {
 
     if (!errors.length) {
       this.taxSummaryService
-        .calculateTax({
+        .calculateTax$({
           grossAnnualSalary: grossSalary!,
           ruleSetId: taxRuleSetId!,
         })
-        .subscribe(this.taxSummary.set);
+        .subscribe((summary) => {
+          this.taxSummary.set(summary);
+          this.summaryLoading.set(false);
+        });
     }
   }
 

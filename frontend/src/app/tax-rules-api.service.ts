@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiData, withApiState } from './api-utils';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,27 +9,27 @@ export class TaxRulesApiService {
   private apiUrl = '/api/rules';
   http = inject(HttpClient);
 
-  taxRules$: Observable<ApiData<TaxRuleSet[]>> = this.http
-    .get<TaxRuleSet[]>(this.apiUrl)
-    .pipe(withApiState());
+  taxRules$: Observable<TaxRuleSet[]> = this.http.get<TaxRuleSet[]>(
+    this.apiUrl,
+  );
 
-  getRuleSets(): Observable<ApiData<TaxRuleSet[]>> {
-    return this.http.get<TaxRuleSet[]>(this.apiUrl).pipe(withApiState());
+  getRuleSets$(): Observable<TaxRuleSet[]> {
+    return this.http.get<TaxRuleSet[]>(this.apiUrl);
   }
 
-  createRuleSet(ruleSet: Omit<TaxRuleSet, 'id'>): Observable<TaxRuleSet> {
+  createRuleSet$(ruleSet: Omit<TaxRuleSet, 'id'>): Observable<TaxRuleSet> {
     return this.http.post<TaxRuleSet>(this.apiUrl, ruleSet);
   }
 
-  updateRuleSet(ruleSet: TaxRuleSet): Observable<void> {
+  updateRuleSet$(ruleSet: TaxRuleSet): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${ruleSet.id}`, ruleSet);
   }
 
-  deleteRuleSet(ruleSetId: number): Observable<void> {
+  deleteRuleSet$(ruleSetId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${ruleSetId}`);
   }
 
-  createBand(
+  createBand$(
     taxRuleSetId: number,
     band: Omit<TaxBand, 'id'>,
   ): Observable<TaxBand> {
@@ -40,14 +39,14 @@ export class TaxRulesApiService {
     );
   }
 
-  updateBand(band: TaxBand): Observable<TaxBand> {
+  updateBand$(band: TaxBand): Observable<TaxBand> {
     return this.http.put<TaxBand>(
       `${this.apiUrl}/${band.taxRuleSetId}/bands/${band.id}`,
       band,
     );
   }
 
-  deleteBand(taxRuleSetId: number, bandId: number): Observable<void> {
+  deleteBand$(taxRuleSetId: number, bandId: number): Observable<void> {
     return this.http.delete<void>(
       `${this.apiUrl}/${taxRuleSetId}/bands/${bandId}`,
     );

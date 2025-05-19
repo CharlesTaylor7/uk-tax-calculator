@@ -11,17 +11,20 @@
   - fails in CI/CD
 
 - Frontend
-  - [ ] Rename taxband component to tax rules component
   - [ ] Need loading indicator
   - [ ] need error indicator
+  - [ ] Rename taxband component to tax rules component
 
 
 - [ ] Fix karma tests
   - DI for http client
 
 
-CI/CD:
+- [ ] CI/CD:
 - linting
   - eslint
 - formatting
   - prettier & csharpier
+
+
+- [ ] format angular code

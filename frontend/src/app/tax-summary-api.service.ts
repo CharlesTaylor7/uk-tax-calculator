@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiData, withApiState } from './api-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -9,15 +8,13 @@ import { ApiData, withApiState } from './api-utils';
 export class TaxSummaryApiService {
   http = inject(HttpClient);
 
-  calculateTax(request: CalculateTaxRequest): Observable<ApiData<TaxSummary>> {
-    return this.http
-      .get<TaxSummary>('/api/tax', {
-        params: {
-          grossAnnualSalary: request.grossAnnualSalary,
-          ruleSetId: request.ruleSetId,
-        },
-      })
-      .pipe(withApiState());
+  calculateTax$(request: CalculateTaxRequest): Observable<TaxSummary> {
+    return this.http.get<TaxSummary>('/api/tax', {
+      params: {
+        grossAnnualSalary: request.grossAnnualSalary,
+        ruleSetId: request.ruleSetId,
+      },
+    });
   }
 }
 
