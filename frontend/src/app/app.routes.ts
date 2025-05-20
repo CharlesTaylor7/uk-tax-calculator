@@ -11,9 +11,11 @@ export const routes: Routes = [
   {
     path: 'calculator',
     component: CalculatorComponent,
+    title: 'Tax Calculator',
   },
   {
     path: 'tax-rules',
     component: TaxBandsComponent,
+    title: 'Tax Rules',
   },
 ];
