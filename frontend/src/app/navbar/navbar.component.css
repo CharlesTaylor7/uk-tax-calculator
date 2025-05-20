@@ -55,3 +55,10 @@
 .navbar__link--active:hover {
   background-color: #45a049;
 }
+
+/* Media query to hide title on mobile screens */
+@media (max-width: 768px) {
+  .navbar__title {
+    display: none;
+  }
+}
