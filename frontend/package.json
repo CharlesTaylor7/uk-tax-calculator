@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/ e2e/"
   },
   "dependencies": {
     "@angular/common": "^19.2.0",
