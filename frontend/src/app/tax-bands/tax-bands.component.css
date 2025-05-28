@@ -321,3 +321,8 @@
   border: 1px dashed #ccc;
   border-radius: 4px;
 }
+
+.tax-bands__input.ng-invalid {
+  text-decoration: underline;
+  text-decoration-color: red;
+}

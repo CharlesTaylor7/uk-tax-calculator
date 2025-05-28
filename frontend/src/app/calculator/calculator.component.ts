@@ -24,7 +24,7 @@ export class CalculatorComponent {
   taxRules = toSignal(
     this.taxRulesService.taxRules$.pipe(
       tap((result) => {
-        // when the dropdown data loads,
+        // when the dropdwn data loads,
         // preselect the first option
         if (result.length) {
           this.taxRuleSetId.set(result[0].id);

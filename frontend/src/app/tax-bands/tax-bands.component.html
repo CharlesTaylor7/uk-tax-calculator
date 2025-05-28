@@ -59,6 +59,7 @@
                 type="number"
                 [(ngModel)]="band.lowerLimit"
                 (blur)="updateBand(band)"
+                min="0"
               />
             </div>
             <div class="tax-bands__cell">
@@ -67,6 +68,8 @@
                 type="number"
                 [(ngModel)]="band.percentageRate"
                 (blur)="updateBand(band)"
+                min="0"
+                max="100"
               />%
             </div>
             <div class="tax-bands__cell tax-bands__cell--actions">
