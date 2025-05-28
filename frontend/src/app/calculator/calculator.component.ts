@@ -1,4 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TaxRulesApiService } from '../tax-rules-api.service';
@@ -13,6 +19,8 @@ import { tap } from 'rxjs';
   styleUrl: './calculator.component.css',
 })
 export class CalculatorComponent {
+  @ViewChild('ruleSetForm', { static: false }) ruleSetForm!: ElementRef;
+  @ViewChild('taxBandForm', { static: false }) taxBandForm!: ElementRef;
   grossAnnualSalary = signal<number | null>(null);
   taxRuleSetId = signal<number | null>(null);
   errorMessage = signal<string>('');

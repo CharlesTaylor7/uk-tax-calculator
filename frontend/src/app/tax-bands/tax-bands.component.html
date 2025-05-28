@@ -16,16 +16,19 @@
   }
   <div class="rule-sets">
     @for (ruleSet of ruleSets(); track ruleSet.id) {
-      <div class="rule-card">
+      <form class="rule-card" #ruleSetForm="ngForm">
         <div class="rule-card__header">
           <input
             class="rule-card__title-input"
             [(ngModel)]="ruleSet.name"
-            (blur)="updateRuleSet(ruleSet)"
+            name="ruleSetName"
+            required
+            (blur)="ruleSetForm.checkValidity() && updateRuleSet(ruleSet)"
           />
           <div class="rule-card__actions">
             <button
               class="rule-card__button rule-card__button--danger"
+              type="button"
               (click)="deleteRuleSet(ruleSet)"
               title="Delete Rule Set"
             >
@@ -44,56 +47,68 @@
             </div>
           </div>
 
-          <div class="tax-bands__row" *ngFor="let band of ruleSet.taxBands">
-            <div class="tax-bands__cell">
-              <input
-                class="tax-bands__input"
-                [(ngModel)]="band.name"
-                (blur)="updateBand(band)"
-              />
-            </div>
-            <div class="tax-bands__cell">
-              £
-              <input
-                class="tax-bands__input tax-bands__input--number"
-                type="number"
-                [(ngModel)]="band.lowerLimit"
-                (blur)="updateBand(band)"
-                min="0"
-              />
-            </div>
-            <div class="tax-bands__cell">
-              <input
-                class="tax-bands__input tax-bands__input--number"
-                type="number"
-                [(ngModel)]="band.percentageRate"
-                (blur)="updateBand(band)"
-                min="0"
-                max="100"
-              />%
-            </div>
-            <div class="tax-bands__cell tax-bands__cell--actions">
-              <button
-                class="tax-bands__action-button tax-bands__action-button--danger"
-                (click)="deleteBand(band)"
-                title="Delete Tax Band"
-              >
-                ×
-              </button>
-            </div>
+          <div class="tax-bands__rows">
+            @for (band of ruleSet.taxBands; track band.id) {
+              <form class="tax-bands__row" #bandForm="ngForm">
+                <div class="tax-bands__cell">
+                  <input
+                    class="tax-bands__input"
+                    [(ngModel)]="band.name"
+                    name="bandName"
+                    required
+                    (blur)="bandForm.checkValidity() && updateBand(band)"
+                  />
+                </div>
+                <div class="tax-bands__cell">
+                  £
+                  <input
+                    class="tax-bands__input tax-bands__input--number"
+                    type="number"
+                    [(ngModel)]="band.lowerLimit"
+                    name="lowerLimit"
+                    required
+                    min="0"
+                    (blur)="bandForm.checkValidity() && updateBand(band)"
+                  />
+                </div>
+                <div class="tax-bands__cell">
+                  <input
+                    class="tax-bands__input tax-bands__input--number"
+                    type="number"
+                    [(ngModel)]="band.percentageRate"
+                    name="percentageRate"
+                    required
+                    min="0"
+                    max="100"
+                    (blur)="bandForm.checkValidity() && updateBand(band)"
+                  />%
+                </div>
+                <div class="tax-bands__cell tax-bands__cell--actions">
+                  <button
+                    class="tax-bands__action-button tax-bands__action-button--danger"
+                    type="button"
+                    (click)="deleteBand(band)"
+                    title="Delete Tax Band"
+                  >
+                    ×
+                  </button>
+                </div>
+              </form>
+            }
           </div>
         </div>
 
         <div class="rule-card__footer">
           <button
             class="rule-card__add-button"
+            type="button"
             (click)="addBand(ruleSet)"
             title="Add Tax Band"
           >
             Add Tax Band
           </button>
         </div>
-      </div>
+      </form>
     } @empty {
       <div class="tax-bands__empty">No tax rules available.</div>
     }
