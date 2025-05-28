@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TaxCalculator.Data;
 using TaxCalculator.Dtos;
 using TaxCalculator.Models;
 using TaxCalculator.Repositories;
